@@ -64,40 +64,41 @@
     </tr>
 </table>
 <hr>
-<h3>Code Display</h3>
+<h3>Matching Algorithm</h3>
 <blockquote cite = "https://brilliant.org/wiki/matching-algorithms/">
-    Matching algorithms are algorithms used to solve graph matching problems in graph theory. A matching problem arises when a set of edges must be drawn that do not share any vertices.
+Matching algorithms are algorithms used to solve graph matching problems in graph theory. A matching problem arises when a set of edges must be drawn that do not share any vertices.
 </blockquote>
+<a href="https://brilliant.org/wiki/matching-algorithms/">Click here to know more</a>
 <pre>
     int n, k;
-vector<vector<int>> g;
-vector<int> mt;
-vector<bool> used;
+    vector<vector<int>> g;
+    vector<int> mt;
+    vector<bool> used;
 
-bool try_kuhn(int v) {
-    if (used[v])
-        return false;
-    used[v] = true;
-    for (int to : g[v]) {
-        if (mt[to] == -1 || try_kuhn(mt[to])) {
-            mt[to] = v;
-            return true;
+    bool try_kuhn(int v) {
+        if (used[v])
+            return false;
+        used[v] = true;
+        for (int to : g[v]) {
+            if (mt[to] == -1 || try_kuhn(mt[to])) {
+                mt[to] = v;
+                return true;
         }
     }
-    return false;
+        return false;
 }
 
-int main() {
-    //... reading the graph ...
+    int main() {
+     //... reading the graph ...
 
-    mt.assign(k, -1);
-    for (int v = 0; v < n; ++v) {
-        used.assign(n, false);
-        try_kuhn(v);
+     mt.assign(k, -1);
+     for (int v = 0; v < n; ++v) {
+          used.assign(n, false);
+          try_kuhn(v);
     }
 
-    for (int i = 0; i < k; ++i)
-        if (mt[i] != -1)
+     for (int i = 0; i < k; ++i)
+            if (mt[i] != -1)
             printf("%d %d\n", mt[i] + 1, i + 1);
 }
 
